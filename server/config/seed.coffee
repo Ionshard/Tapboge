@@ -16,7 +16,7 @@ Thing.find({}).remove ->
     name: "Smart Build System"
     info: "Build system ignores `spec` files, allowing you to keep tests alongside code. Automatic injection of scripts and styles into your index.html"
   ,
-    name: "Modular Structure"
+    name: "Modular Structure"A
     info: "Best practice client and server structures allow for more code reusability and maximum scalability"
   ,
     name: "Optimized Build"
@@ -35,7 +35,7 @@ User.find({}).remove ->
     password: "test"
   ,
     provider: "local"
-    role: "admin"
+    role: "dev"
     name: "Admin"
     email: "admin@admin.com"
     password: "admin"
