@@ -25,8 +25,5 @@ exports.setup = (User, config) ->
 
       else
         done err, user
-      return
 
-    return
   )
-  return

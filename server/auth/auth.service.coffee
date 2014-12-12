@@ -13,17 +13,13 @@ isAuthenticated = ->
   compose().use((req, res, next) ->
     req.headers.authorization = "Bearer " + req.query.access_token  if req.query and req.query.hasOwnProperty("access_token")
     validateJwt req, res, next
-    return
+
   ).use (req, res, next) ->
     User.findById req.user._id, (err, user) ->
       return next(err)  if err
       return res.send(401)  unless user
       req.user = user
       next()
-      return
-
-    return
-
 
 ###*
 Checks if the user role meets the minimum requirements of the route
@@ -35,8 +31,6 @@ hasRole = (roleRequired) ->
       next()
     else
       res.send 403
-    return
-
 
 ###*
 Returns a jwt token signed by the app secret
@@ -59,7 +53,7 @@ setTokenCookie = (req, res) ->
   token = signToken(req.user._id, req.user.role)
   res.cookie "token", JSON.stringify(token)
   res.redirect "/"
-  return
+
 "use strict"
 mongoose = require("mongoose")
 passport = require("passport")

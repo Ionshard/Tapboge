@@ -13,24 +13,15 @@ describe "User Model", ->
     # Clear users before testing
     User.remove().exec().then ->
       done()
-      return
-
-    return
 
   afterEach (done) ->
     User.remove().exec().then ->
       done()
-      return
-
-    return
 
   it "should begin with no users", (done) ->
     User.find {}, (err, users) ->
       users.should.have.length 0
       done()
-      return
-
-    return
 
   it "should fail when saving a duplicate user", (done) ->
     user.save ->
@@ -38,25 +29,15 @@ describe "User Model", ->
       userDup.save (err) ->
         should.exist err
         done()
-        return
-
-      return
-
-    return
 
   it "should fail when saving without an email", (done) ->
     user.email = ""
     user.save (err) ->
       should.exist err
       done()
-      return
-
-    return
 
   it "should authenticate user if password is valid", ->
     user.authenticate("password").should.be.true
 
   it "should not authenticate user if password is invalid", ->
     user.authenticate("blah").should.not.be.true
-
-  return

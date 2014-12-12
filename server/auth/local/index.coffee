@@ -13,8 +13,7 @@ router.post "/", (req, res, next) ->
       )
     token = auth.signToken(user._id, user.role)
     res.json token: token
-    return
+
   ) req, res, next
-  return
 
 module.exports = router

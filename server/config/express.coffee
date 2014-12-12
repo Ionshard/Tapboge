@@ -47,4 +47,3 @@ module.exports = (app) ->
     app.set "appPath", "client"
     app.use morgan("dev")
     app.use errorHandler() # Error handler - has to be last
-  return

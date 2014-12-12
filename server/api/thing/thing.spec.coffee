@@ -8,8 +8,3 @@ describe "GET /api/things", ->
       return done(err)  if err
       res.body.should.be.instanceof Array
       done()
-      return
-
-    return
-
-  return

@@ -29,8 +29,6 @@ require("./routes") app
 # Start server
 server.listen config.port, config.ip, ->
   console.log "Express server listening on %d, in %s mode", config.port, app.get("env")
-  return
-
 
 # Expose app
 exports = module.exports = app

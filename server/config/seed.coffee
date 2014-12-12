@@ -25,8 +25,6 @@ Thing.find({}).remove ->
     name: "Deployment Ready"
     info: "Easily deploy your app to Heroku or Openshift with the heroku and openshift subgenerators"
 
-  return
-
 User.find({}).remove ->
   User.create
     provider: "local"
@@ -41,7 +39,3 @@ User.find({}).remove ->
     password: "admin"
   , ->
     console.log "finished populating users"
-    return
-
-  return
-

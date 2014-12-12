@@ -32,7 +32,7 @@ UserSchema.virtual("password").set((password) ->
   @_password = password
   @salt = @makeSalt()
   @hashedPassword = @encryptPassword(password)
-  return
+
 ).get ->
   @_password
 
@@ -75,9 +75,7 @@ UserSchema.path("email").validate ((value, respond) ->
       return respond(true)  if self.id is user.id
       return respond(false)
     respond true
-    return
 
-  return
 ), "The specified email address is already in use."
 validatePresenceOf = (value) ->
   value and value.length
@@ -92,8 +90,6 @@ UserSchema.pre "save", (next) ->
     next new Error("Invalid password")
   else
     next()
-  return
-
 
 ###*
 Methods

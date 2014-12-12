@@ -19,6 +19,4 @@ exports.setup = (User, config) ->
         )
       done null, user
 
-    return
   )
-  return

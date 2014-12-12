@@ -10,6 +10,3 @@ module.exports[404] = pageNotFound = (req, res) ->
   res.render viewFilePath, (err) ->
     return res.json(result, result.status)  if err
     res.render viewFilePath
-    return
-
-  return
