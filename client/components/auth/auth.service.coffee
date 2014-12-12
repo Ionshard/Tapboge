@@ -112,10 +112,8 @@ angular.module 'tapbogeApp'
     if currentUser.hasOwnProperty '$promise'
       currentUser.$promise.then ->
         callback? true
-        return
       .catch ->
         callback? false
-        return
 
     else
       callback? currentUser.hasOwnProperty 'role'

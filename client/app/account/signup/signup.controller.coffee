@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'tapbogeApp'
-.controller 'SignupCtrl', ($scope, Auth, $location, $window) ->
+.controller 'SignupController', ($scope, Auth, $location, $window) ->
   $scope.user = {}
   $scope.errors = {}
   $scope.register = (form) ->

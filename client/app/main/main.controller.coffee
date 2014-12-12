@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'tapbogeApp'
-.controller 'MainCtrl', ($scope, $http, socket) ->
+.controller 'MainController', ($scope, $http, socket) ->
   $scope.awesomeThings = []
 
   $http.get('/api/things').success (awesomeThings) ->

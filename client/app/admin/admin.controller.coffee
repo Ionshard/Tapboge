@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'tapbogeApp'
-.controller 'AdminCtrl', ($scope, $http, Auth, User) ->
+.controller 'AdminController', ($scope, $http, Auth, User) ->
 
   $http.get '/api/users'
   .success (users) ->

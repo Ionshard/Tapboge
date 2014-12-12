@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'tapbogeApp'
-.controller 'NavbarCtrl', ($scope, $location, Auth) ->
+.controller 'NavbarController', ($scope, $location, Auth) ->
   $scope.menu = [
     title: 'Home'
     link: '/'

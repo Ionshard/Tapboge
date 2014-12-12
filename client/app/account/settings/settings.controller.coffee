@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'tapbogeApp'
-.controller 'SettingsCtrl', ($scope, User, Auth) ->
+.controller 'SettingsController', ($scope, User, Auth) ->
   $scope.errors = {}
   $scope.changePassword = (form) ->
     $scope.submitted = true

@@ -16,7 +16,7 @@ Thing.find({}).remove ->
     name: "Smart Build System"
     info: "Build system ignores `spec` files, allowing you to keep tests alongside code. Automatic injection of scripts and styles into your index.html"
   ,
-    name: "Modular Structure"A
+    name: "Modular Structure"
     info: "Best practice client and server structures allow for more code reusability and maximum scalability"
   ,
     name: "Optimized Build"

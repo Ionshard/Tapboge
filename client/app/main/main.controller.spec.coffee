@@ -1,12 +1,12 @@
 'use strict'
 
-describe 'Controller: MainCtrl', ->
+describe 'Controller: MainController', ->
 
   # load the controller's module
   beforeEach module 'tapbogeApp' 
   beforeEach module 'socketMock' 
 
-  MainCtrl = undefined
+  MainController = undefined
   scope = undefined
   $httpBackend = undefined
 
@@ -20,7 +20,7 @@ describe 'Controller: MainCtrl', ->
       'Express'
     ]
     scope = $rootScope.$new()
-    MainCtrl = $controller 'MainCtrl',
+    MainController = $controller 'MainController',
       $scope: scope
 
   it 'should attach a list of things to the scope', ->

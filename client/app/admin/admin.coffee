@@ -5,4 +5,5 @@ angular.module 'tapbogeApp'
   $routeProvider
   .when '/admin',
     templateUrl: 'app/admin/admin.html'
-    controller: 'AdminCtrl'
+    controller: 'AdminController'
+    authenticate: true
