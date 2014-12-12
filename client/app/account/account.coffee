@@ -4,7 +4,7 @@ angular.module 'tapbogeApp'
 .config ($routeProvider) ->
   $routeProvider
   .when '/login',
-    templateUrl: 'app/account/login/login.html'
+    templateUrl: 'components/login/login.html'
     controller: 'LoginController'
 
   .when '/signup',

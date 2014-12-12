@@ -1,10 +1,15 @@
 div(ng-include='"components/navbar/navbar.html"')
 
-header#banner.hero-unit
+header#banner
   .container
-    h1 'Allo, 'Allo!
-    p.lead Kick-start your next web app with Angular Fullstack
-    img(src='assets/images/yeoman.png', alt='I\'m Yeoman')
+    .row
+      .col-md-3.col-md-offset-0.col-sm-4.col-sm-offset-2.col-xs-12.col-xs-offset-0.pull-right
+        .row
+          div(ng-include='"components/login/form.html"')
+      .col-md-9.col-sm-6
+          h1.page-header Tapboge
+          p.lead Tiling AP Based Online Game Engine
+          img(src='assets/images/yeoman.png', alt='I\'m Yeoman')
 
 .container
   .row
