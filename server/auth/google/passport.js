@@ -15,7 +15,7 @@ exports.setup = function (User, config) {
           user = new User({
             name: profile.displayName,
             email: profile.emails[0].value,
-            role: 'user',
+            role: 'player',
             username: profile.username,
             provider: 'google',
             google: profile._json
