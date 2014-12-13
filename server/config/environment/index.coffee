@@ -27,8 +27,8 @@ all =
   # List of user roles
   userRoles: [
     "guest"
-    "user"
-    "admin"
+    "player"
+    "dev"
   ]
 
   # MongoDB connection options
