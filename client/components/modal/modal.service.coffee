@@ -22,21 +22,23 @@ angular.module 'tapbogeApp'
   
   # Public API here
   
-  # Confirmation modals 
+  # Confirmation modals
   confirm:
     
     ###
-    Create a function to open a delete confirmation modal (ex. ng-click='myModalFn(name, arg1, arg2...)')
+    Create a function to open a delete confirmation modal
+      (ex. ng-click='myModalFn(name, arg1, arg2...)')
     @param  {Function} del - callback, ran when delete is confirmed
-    @return {Function}     - the function to open the modal (ex. myModalFn)
+    @return {Function}     - the function to open the modal
+      (ex. myModalFn)
     ###
     delete: (del) ->
       del = del or angular.noop
       
       ###
       Open a delete confirmation modal
-      @param  {String} name   - name or info to show on modal
-      @param  {All}           - any additional args are passed staight to del callback
+      @param  {String} name - name or info to show on modal
+      @param  {All} - any additional args are passed staight to del callback
       ###
       ->
         args = Array::slice.call arguments
@@ -46,7 +48,8 @@ angular.module 'tapbogeApp'
           modal:
             dismissable: true
             title: 'Confirm Delete'
-            html: '<p>Are you sure you want to delete <strong>' + name + '</strong> ?</p>'
+            html: "<p>Are you sure you want to delete
+              <strong>#{name}</strong>?</p>"
             buttons: [
               {
                 classes: 'btn-danger'

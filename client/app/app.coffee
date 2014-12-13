@@ -20,7 +20,8 @@ angular.module 'tapbogeApp', [
   # Add authorization token to headers
   request: (config) ->
     config.headers = config.headers or {}
-    config.headers.Authorization = 'Bearer ' + $cookieStore.get 'token' if $cookieStore.get 'token'
+    if $cookieStore.get 'token'
+      config.headers.Authorization = 'Bearer ' + $cookieStore.get 'token'
     config
 
   # Intercept 401s and redirect you to login

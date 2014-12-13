@@ -11,7 +11,8 @@ isAuthenticated = ->
   
   # Attach user to request
   compose().use((req, res, next) ->
-    req.headers.authorization = "Bearer " + req.query.access_token  if req.query and req.query.hasOwnProperty("access_token")
+    if req.query and req.query.hasOwnProperty("access_token")
+      req.headers.authorization = "Bearer " + req.query.access_token
     validateJwt req, res, next
 
   ).use (req, res, next) ->
@@ -27,7 +28,9 @@ Checks if the user role meets the minimum requirements of the route
 hasRole = (roleRequired) ->
   throw new Error("Required role needs to be set")  unless roleRequired
   compose().use(isAuthenticated()).use meetsRequirements = (req, res, next) ->
-    if config.userRoles.indexOf(req.user.role) >= config.userRoles.indexOf(roleRequired)
+    roleClearance = config.userRoles.indexOf(req.user.role)
+    requiredClearance = config.userRoles.indexOf(roleRequired)
+    if roleClearance >= requiredClearance
       next()
     else
       res.send 403

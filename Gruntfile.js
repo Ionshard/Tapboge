@@ -70,15 +70,17 @@ module.exports = function (grunt) {
         tasks: ['injector:css']
       },
       mochaTest: {
-        files: ['server/**/*.spec.coffee'],
-        tasks: ['env:test', 'mochaTest']
-      },
-      jsTest: {
         files: [
-          '<%= yeoman.client %>/{app,components}/**/*.spec.js',
-          '<%= yeoman.client %>/{app,components}/**/*.mock.js'
+          'server/**/*.spec.coffee',
+          'server/**/*.coffee'],
+        tasks: ['env:test', 'newer:coffeelint:server', 'mochaTest']
+      },
+      coffeeTest: {
+        files: [
+          '<%= yeoman.client %>/{app,components}/**/*.spec.coffee',
+          '<%= yeoman.client %>/{app,components}/**/*.mock.coffee'
         ],
-        tasks: ['newer:jshint:all', 'karma']
+        tasks: ['newer:coffeelint:test', 'karma']
       },
       injectSass: {
         files: [
@@ -103,12 +105,6 @@ module.exports = function (grunt) {
         ],
         tasks: ['newer:coffee', 'injector:scripts']
       },
-      coffeeTest: {
-        files: [
-          '<%= yeoman.client %>/{app,components}/**/*.spec.{coffee,litcoffee,coffee.md}'
-        ],
-        tasks: ['karma']
-      },
       gruntfile: {
         files: ['Gruntfile.js']
       },
@@ -116,9 +112,9 @@ module.exports = function (grunt) {
         files: [
           '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.css',
           '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.html',
-          '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
-          '!{.tmp,<%= yeoman.client %>}{app,components}/**/*.spec.js',
-          '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js',
+          '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.coffee',
+          '!{.tmp,<%= yeoman.client %>}{app,components}/**/*.spec.coffee',
+          '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.coffee',
           '<%= yeoman.client %>/assets/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}'
         ],
         options: {
@@ -127,7 +123,7 @@ module.exports = function (grunt) {
       },
       express: {
         files: [
-          'server/**/*.{js,json}'
+          'server/**/*.{coffee,json}'
         ],
         tasks: ['express:dev', 'wait'],
         options: {
@@ -138,37 +134,18 @@ module.exports = function (grunt) {
     },
 
     // Make sure code styles are up to par and there are no obvious mistakes
-    jshint: {
-      options: {
-        jshintrc: '<%= yeoman.client %>/.jshintrc',
-        reporter: require('jshint-stylish')
-      },
-      server: {
-        options: {
-          jshintrc: 'server/.jshintrc'
-        },
-        src: [
-          'server/**/*.js',
-          '!server/**/*.spec.js'
-        ]
-      },
-      serverTest: {
-        options: {
-          jshintrc: 'server/.jshintrc-spec'
-        },
-        src: ['server/**/*.spec.js']
-      },
+    coffeelint: {
+      server: [
+        'server/**/*.coffee',
+        '!server/**/*.spec.coffee'],
+      serverTest: ['server/**/*.spec.coffee'],
       all: [
-        '<%= yeoman.client %>/{app,components}/**/*.js',
-        '!<%= yeoman.client %>/{app,components}/**/*.spec.js',
-        '!<%= yeoman.client %>/{app,components}/**/*.mock.js'
-      ],
-      test: {
-        src: [
-          '<%= yeoman.client %>/{app,components}/**/*.spec.js',
-          '<%= yeoman.client %>/{app,components}/**/*.mock.js'
-        ]
-      }
+        '<%= yeoman.client %>/{app,components}/**/*.coffee',
+        '!<%= yeoman.client %>/{app,components}/**/*.spec.coffee',
+        '!<%= yeoman.client %>/{app,components}/**/*.mock.coffee'],
+      test: [
+        '<%= yeoman.client %>/{app,components}/**/*.spec.coffee',
+        '<%= yeoman.client %>/{app,components}/**/*.mock.coffee']
     },
 
     // Empties folders to start fresh
@@ -725,7 +702,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('default', [
-    'newer:jshint',
+    'newer:coffeelint',
     'test',
     'build'
   ]);

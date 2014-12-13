@@ -75,7 +75,7 @@ exports.me = (req, res, next) ->
   userId = req.user._id
   User.findOne
     _id: userId
-  , "-salt -hashedPassword", (err, user) -> # don't ever give out the password or salt
+  , "-salt -hashedPassword", (err, user) ->
     return next(err)  if err
     return res.json(401)  unless user
     res.json user

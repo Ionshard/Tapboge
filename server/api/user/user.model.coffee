@@ -86,7 +86,7 @@ Pre-save hook
 ###
 UserSchema.pre "save", (next) ->
   return next()  unless @isNew
-  if not validatePresenceOf(@hashedPassword) and authTypes.indexOf(@provider) is -1
+  if not @hashedPassword? and authTypes.indexOf(@provider) is -1
     next new Error("Invalid password")
   else
     next()

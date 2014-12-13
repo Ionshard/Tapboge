@@ -18,8 +18,9 @@ angular.module 'tapbogeApp'
   ###
   Register listeners to sync an array with updates on a model
 
-  Takes the array we want to sync, the model name that socket updates are sent from,
-  and an optional callback function after new items are updated.
+  Takes the array we want to sync, the model name that socket
+  updates are sent from, and an optional callback function after
+  new items are updated.
 
   @param {String} modelName
   @param {Array} array
