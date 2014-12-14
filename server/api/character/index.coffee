@@ -4,6 +4,8 @@ controller = require("./character.controller")
 auth = require("../../auth/auth.service")
 router = express.Router()
 router.get "/", auth.hasRole("dev"), controller.index
+router.get "/active", auth.hasRole("player"), controller.active
+router.put "/active/:id", auth.hasRole("player"), controller.activate
 router.get "/:id", controller.show
 router.post "/", auth.hasRole("player"), controller.create
 router.put "/:id", auth.hasRole("player"), controller.update

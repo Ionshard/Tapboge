@@ -100,3 +100,41 @@ describe "Character Controller", ->
             count.should.equal(1)
             done()
       }
+  describe "active", ->
+    it "should 404 when no active character", (done) ->
+      controller.active {
+        user: {_id: id}
+      }, {
+        send: (res) ->
+          res.should.be.equal(404)
+          done()
+      }
+
+    it "should return the currently active character", (done) ->
+
+      Character.findByIdAndUpdate character1._id, {active: true}, (err) ->
+        throw err if err
+        
+        controller.active {
+          user: {_id: id}
+          # character: {_id: character1?._id}
+        }, {
+          json: (res, data) ->
+            res.should.equal(200)
+            should.exists(data)
+            data._id.should.eql(character1._id)
+            done()
+        }
+      
+  describe "activate", ->
+    it "should set character to active", (done) ->
+      controller.activate {
+        user: {_id: id}
+        params: {id: character1._id}
+      }, {
+        send: (res) ->
+          res.should.equal(200)
+          Character.findById character1._id, (err, character) ->
+            character.active.should.be.true
+            done()
+      }

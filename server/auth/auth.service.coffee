@@ -6,6 +6,7 @@ jwt = require("jsonwebtoken")
 expressJwt = require("express-jwt")
 compose = require("composable-middleware")
 User = require("../api/user/user.model")
+Character = require("../api/character/character.model")
 validateJwt = expressJwt(secret: config.secrets.session)
 
 ###*
@@ -20,12 +21,10 @@ isAuthenticated = ->
 
   .use (req, res, next) ->
     User.findById req.user._id, (err, user) ->
-      return next(err)  if err
-      return res.send(401)  unless user
+      return next(err) if err
+      return res.send(401) unless user
       req.user = user
       next()
-
-
 
 ###*
 Checks if the user role meets the minimum requirements of the route
