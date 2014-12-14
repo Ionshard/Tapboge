@@ -124,7 +124,7 @@ angular.module 'tapbogeApp'
   @return {Boolean}
   ###
   isAdmin: ->
-    currentUser.role is 'admin'
+    currentUser.role is 'dev'
 
 
   ###
