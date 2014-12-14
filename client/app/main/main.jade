@@ -5,7 +5,7 @@ header#banner
     .row
       .col-md-3.col-md-offset-0.col-sm-4.col-sm-offset-2.col-xs-12.col-xs-offset-0.pull-right
         .row
-          div(ng-include='"components/login/form.html"')
+          div(ng-controller='LoginController' ng-include='"components/login/form.html"')
       .col-md-9.col-sm-6
           h1.page-header Tapboge
           p.lead Tiling AP Based Online Game Engine
