@@ -49,9 +49,9 @@ User.find({}).remove ->
     Character.find({}).remove ->
       Character.create
         user: admin._id
-        name: "Test Character 1"
+        name: "Character 1"
       ,
         user: admin._id
-        name: "Test Character 2"
+        name: "Character 2"
     , ->
       console.log "finished populating users"

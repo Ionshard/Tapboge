@@ -13,17 +13,19 @@ Attaches the user object to the request if authenticated
 Otherwise returns 403
 ###
 isAuthenticated = ->
-  compose().use((req, res, next) ->
+  compose().use (req, res, next) ->
     if req.query and req.query.hasOwnProperty("access_token")
       req.headers.authorization = "Bearer " + req.query.access_token
     validateJwt req, res, next
 
-  ).use (req, res, next) ->
+  .use (req, res, next) ->
     User.findById req.user._id, (err, user) ->
       return next(err)  if err
       return res.send(401)  unless user
       req.user = user
       next()
+
+
 
 ###*
 Checks if the user role meets the minimum requirements of the route

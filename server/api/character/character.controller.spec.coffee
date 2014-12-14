@@ -3,9 +3,9 @@ should = require("should")
 _ = require("lodash")
 Character = require("./character.model")
 controller = require("./character.controller")
+ObjectId = require('mongoose').Types.ObjectId
 
-
-id = "000000000000000000000000"
+id = ObjectId()
 character1 = null
 character2 = null
 
@@ -27,7 +27,7 @@ describe "Character Controller", ->
       name: "Test Character 2"
       user: id
     ], (err, _character1, _character2) ->
-      throw err if err?
+      throw err if err
       character1 = _character1
       character2 = _character2
       done()
@@ -72,7 +72,7 @@ describe "Character Controller", ->
         body: {name: "User Character"}
       }, {
         json: (res, data) ->
-          data.user.toString().should.eql(id)
+          data.user.should.eql(id)
           done()
       }
 
