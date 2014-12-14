@@ -2,20 +2,25 @@
 should = require("should")
 _ = require("lodash")
 User = require("./user.model")
+Character = require("../character/character.model")
 controller = require("./user.controller")
 
 user1 = null
 user2 = null
+character1 = null
+character2 = null
 
 describe "User Controller", ->
   before (done) ->
     # Clear users before testing
-    User.remove().exec().then ->
-      done()
+    Character.remove().exec().then ->
+      User.remove().exec().then ->
+        done()
 
   afterEach (done) ->
-    User.remove().exec().then ->
-      done()
+    Character.remove().exec().then ->
+      User.remove().exec().then ->
+        done()
 
   beforeEach (done) ->
     User.create [
@@ -30,7 +35,18 @@ describe "User Controller", ->
       throw err if err?
       user1 = _user1
       user2 = _user2
-      done()
+
+      Character.create [
+        name: "Test Character 1"
+        user: user1._id
+      ,
+        name: "Test Character 2"
+        user: user1._id
+      ], (err, _character1, _character2) ->
+        throw err if err?
+        character1 = _character1
+        character2 = _character2
+        done()
 
   describe "index", ->
     it "should list users", (done) ->
@@ -127,5 +143,15 @@ describe "User Controller", ->
       }, {
         json: (data) ->
           data.email.should.be.equal(user2.email)
+          done()
+      }
+
+  describe "characters", ->
+    it "should return the user's characters", (done) ->
+      controller.characters {
+        user: user1
+      }, {
+        json: (res, data) ->
+          data.length.should.equal(2)
           done()
       }

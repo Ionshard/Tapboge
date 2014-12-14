@@ -1,5 +1,6 @@
 "use strict"
 User = require("./user.model")
+Character = require("../character/character.model")
 passport = require("passport")
 config = require("../../config/environment")
 jwt = require("jsonwebtoken")
@@ -13,7 +14,7 @@ restriction: 'admin'
 ###
 exports.index = (req, res) ->
   User.find {}, "-salt -hashedPassword", (err, users) ->
-    return res.send(500, err)  if err
+    res.send(500, err) if err
     res.json 200, users
 
 ###*
@@ -38,8 +39,8 @@ Get a single user
 exports.show = (req, res, next) ->
   userId = req.params.id
   User.findById userId, (err, user) ->
-    return next(err)  if err
-    return res.send(401)  unless user
+    next(err) if err
+    res.send(401) unless user
     res.json user
 
 ###*
@@ -48,7 +49,7 @@ restriction: 'admin'
 ###
 exports.destroy = (req, res) ->
   User.findByIdAndRemove req.params.id, (err, user) ->
-    return res.send(500, err)  if err
+    res.send(500, err)  if err
     res.send 204
 
 ###*
@@ -62,7 +63,7 @@ exports.changePassword = (req, res, next) ->
     if user.authenticate(oldPass)
       user.password = newPass
       user.save (err) ->
-        return validationError(res, err)  if err
+        validationError(res, err) if err
         res.send 200
 
     else
@@ -76,9 +77,18 @@ exports.me = (req, res, next) ->
   User.findOne
     _id: userId
   , "-salt -hashedPassword", (err, user) ->
-    return next(err)  if err
-    return res.json(401)  unless user
+    next(err) if err
+    res.json(401) unless user
     res.json user
+
+###*
+Get characters of user
+###
+exports.characters = (req, res) ->
+  userId = req.user._id
+  Character.find {user: userId}, (err, characters) ->
+    validationError(res, err) if err
+    res.json 200, characters
 
 ###*
 Authentication callback
