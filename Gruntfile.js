@@ -103,7 +103,7 @@ module.exports = function (grunt) {
           '<%= yeoman.client %>/{app,components}/**/*.{coffee,litcoffee,coffee.md}',
           '!<%= yeoman.client %>/{app,components}/**/*.spec.{coffee,litcoffee,coffee.md}'
         ],
-        tasks: ['newer:coffee', 'injector:scripts']
+        tasks: ['newer:coffee', 'karma', 'injector:scripts']
       },
       gruntfile: {
         files: ['Gruntfile.js']
