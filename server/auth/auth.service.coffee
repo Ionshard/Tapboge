@@ -1,15 +1,18 @@
+"use strict"
+mongoose = require("mongoose")
+passport = require("passport")
+config = require("../config/environment")
+jwt = require("jsonwebtoken")
+expressJwt = require("express-jwt")
+compose = require("composable-middleware")
+User = require("../api/user/user.model")
+validateJwt = expressJwt(secret: config.secrets.session)
 
 ###*
 Attaches the user object to the request if authenticated
 Otherwise returns 403
 ###
 isAuthenticated = ->
-  
-  # Validate jwt
-  
-  # allow access_token to be passed through query parameter as well
-  
-  # Attach user to request
   compose().use((req, res, next) ->
     if req.query and req.query.hasOwnProperty("access_token")
       req.headers.authorization = "Bearer " + req.query.access_token
@@ -27,7 +30,7 @@ Checks if the user role meets the minimum requirements of the route
 ###
 hasRole = (roleRequired) ->
   throw new Error("Required role needs to be set")  unless roleRequired
-  compose().use(isAuthenticated()).use meetsRequirements = (req, res, next) ->
+  compose().use(isAuthenticated()).use (req, res, next) ->
     roleClearance = config.userRoles.indexOf(req.user.role)
     requiredClearance = config.userRoles.indexOf(roleRequired)
     if roleClearance >= requiredClearance
@@ -57,15 +60,6 @@ setTokenCookie = (req, res) ->
   res.cookie "token", JSON.stringify(token)
   res.redirect "/"
 
-"use strict"
-mongoose = require("mongoose")
-passport = require("passport")
-config = require("../config/environment")
-jwt = require("jsonwebtoken")
-expressJwt = require("express-jwt")
-compose = require("composable-middleware")
-User = require("../api/user/user.model")
-validateJwt = expressJwt(secret: config.secrets.session)
 exports.isAuthenticated = isAuthenticated
 exports.hasRole = hasRole
 exports.signToken = signToken

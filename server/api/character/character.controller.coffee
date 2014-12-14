@@ -25,6 +25,7 @@ exports.show = (req, res) ->
 
 # Creates a new character in the DB.
 exports.create = (req, res) ->
+  req.body.user = req.user._id
   Character.create req.body, (err, character) ->
     return handleError(res, err)  if err
     res.json 201, character

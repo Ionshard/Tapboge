@@ -54,9 +54,8 @@ describe "Character Controller", ->
   describe "create", ->
     it "should create a character", (done) ->
       controller.create {
-        body: 
-          name: "Controller Character"
-          user: id
+        user: {_id: id}
+        body: {name: "Controller Character"}
       }, {
         json: (res, data) ->
           res.should.be.equal(201)
@@ -65,6 +64,16 @@ describe "Character Controller", ->
             throw err if err
             count.should.be.equal(3)
             done()
+      }
+
+    it "should associate with the authenticated user", (done) ->
+      controller.create {
+        user: {_id: id}
+        body: {name: "User Character"}
+      }, {
+        json: (res, data) ->
+          data.user.toString().should.eql(id)
+          done()
       }
 
   describe "update", ->
