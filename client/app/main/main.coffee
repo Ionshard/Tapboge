@@ -6,3 +6,4 @@ angular.module 'tapbogeApp'
   .when '/',
     templateUrl: 'app/main/main.html'
     controller: 'MainController'
+    public: true

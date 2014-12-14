@@ -6,4 +6,3 @@ angular.module 'tapbogeApp'
   .when '/admin',
     templateUrl: 'app/admin/admin.html'
     controller: 'AdminController'
-    authenticate: true
