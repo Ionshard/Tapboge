@@ -8,10 +8,10 @@ div(ng-include='"components/navbar/navbar.html"')
 .col-md-12
   h2 New Character
   .container.new-character
-    form.form(name='form', ng-submit='createCharacter(form)', novalidate='')
+    form.form(name='form', ng-submit='createCharacter(form)')
       .form-group
         label Name
-        input.form-control(type='text', name='name', ng-model='newCharacter.name')
+        input.form-control(type='text', name='name', ng-model='newCharacter.name', ng-required="true")
 
       .form-group.has-error
         p.help-block(ng-show='form.name.$error.required && submitted')

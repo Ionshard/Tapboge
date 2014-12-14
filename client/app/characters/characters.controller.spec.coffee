@@ -45,3 +45,4 @@ describe 'Controller: CharactersController', ->
     $httpBackend.flush()
     names = _.pluck($scope.characters, 'name')
     expect(names).toContain("New Character")
+    expect($scope.newCharacter.name).toBe(undefined)

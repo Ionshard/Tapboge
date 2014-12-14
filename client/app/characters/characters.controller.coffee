@@ -14,5 +14,6 @@ angular.module 'tapbogeApp'
       $http.post('/api/characters/', $scope.newCharacter)
       .success (character) ->
         $scope.characters.push(character)
+        $scope.newCharacter = {}
 
   $scope.init()

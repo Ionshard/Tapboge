@@ -15,7 +15,7 @@ angular.module 'tapbogeApp'
         password: $scope.user.password
 
       .then ->
-        $location.path '/'
+        $location.path '/characters'
 
       .catch (err) ->
         err = err.data
