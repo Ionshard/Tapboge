@@ -22,7 +22,7 @@ Creates a new user
 exports.create = (req, res, next) ->
   newUser = new User(req.body)
   newUser.provider = "local"
-  newUser.role = "user"
+  newUser.role = "player"
   newUser.save (err, user) ->
     return validationError(res, err)  if err
     token = jwt.sign(
@@ -40,7 +40,7 @@ exports.show = (req, res, next) ->
   User.findById userId, (err, user) ->
     return next(err)  if err
     return res.send(401)  unless user
-    res.json user.profile
+    res.json user
 
 ###*
 Deletes a user
