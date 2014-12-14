@@ -1,7 +1,7 @@
 "use strict"
 should = require("should")
 _ = require("lodash")
-app = require("../../app")
+database = require("../../config/database")
 Character = require("./character.model")
 
 characterData = {
