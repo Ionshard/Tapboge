@@ -80,7 +80,7 @@ module.exports = function (grunt) {
           '<%= yeoman.client %>/{app,components}/**/*.spec.coffee',
           '<%= yeoman.client %>/{app,components}/**/*.mock.coffee'
         ],
-        tasks: ['newer:coffeelint:test', 'karma']
+        tasks: ['newer:coffeelint:test', 'newer:coffee', 'karma']
       },
       injectSass: {
         files: [

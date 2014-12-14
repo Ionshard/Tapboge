@@ -3,8 +3,8 @@
 describe 'Controller: MainController', ->
 
   # load the controller's module
-  beforeEach module 'tapbogeApp' 
-  beforeEach module 'socketMock' 
+  beforeEach module 'tapbogeApp'
+  beforeEach module 'socketMock'
 
   MainController = undefined
   scope = undefined

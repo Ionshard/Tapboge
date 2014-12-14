@@ -5,6 +5,7 @@ to disable, edit config/environment/index.js, and set `seedDB: false`
 "use strict"
 Thing = require("../api/thing/thing.model")
 User = require("../api/user/user.model")
+Character = require("../api/character/character.model")
 Thing.find({}).remove ->
   Thing.create
     name: "Development Tools"
@@ -37,14 +38,20 @@ Thing.find({}).remove ->
 User.find({}).remove ->
   User.create
     provider: "local"
-    name: "Test User"
     email: "test@test.com"
     password: "test"
   ,
     provider: "local"
     role: "dev"
-    name: "Admin"
     email: "admin@admin.com"
     password: "admin"
-  , ->
-    console.log "finished populating users"
+  , (err, user, admin)->
+    Character.find({}).remove ->
+      Character.create
+        user: admin._id
+        name: "Test Character 1"
+      ,
+        user: admin._id
+        name: "Test Character 2"
+    , ->
+      console.log "finished populating users"
