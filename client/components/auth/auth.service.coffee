@@ -1,8 +1,9 @@
 'use strict'
 
 angular.module 'tapbogeApp'
-.factory 'Auth', ($location, $rootScope, $http, User, $cookieStore, $q) ->
+.factory 'Auth', ($location, $rootScope, $http, User, Character, $cookieStore, $q) ->
   currentUser = if $cookieStore.get 'token' then User.get() else {}
+  currentCharacter = if $cookieStore.get 'token' then Character.active() else {}
 
   ###
   Authenticate user and save token
@@ -13,6 +14,7 @@ angular.module 'tapbogeApp'
   ###
   login: (user, callback) ->
     deferred = $q.defer()
+
     $http.post '/auth/local',
       email: user.email
       password: user.password
@@ -20,6 +22,7 @@ angular.module 'tapbogeApp'
     .success (data) ->
       $cookieStore.put 'token', data.token
       currentUser = User.get()
+      currentCharacter = Character.active()
       deferred.resolve data
       callback?()
 
@@ -39,6 +42,7 @@ angular.module 'tapbogeApp'
   logout: ->
     $cookieStore.remove 'token'
     currentUser = {}
+    currentCharacter = {}
     return
 
 
@@ -95,6 +99,13 @@ angular.module 'tapbogeApp'
   getCurrentUser: ->
     currentUser
 
+  ###
+  Gets currently active character
+
+  @return {Object} character
+  ###
+  getCurrentCharacter: ->
+    currentCharacter
 
   ###
   Check if a user is logged in synchronously

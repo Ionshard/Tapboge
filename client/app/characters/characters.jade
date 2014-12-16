@@ -1,6 +1,6 @@
 div(ng-include='"components/navbar/navbar.html"')
 .col-md-12
-    | This is the characters view.
+    | Active Character: {{ character().name }}
 
 .col-md-12
   li(ng-repeat="character in characters") {{ character.name }}
