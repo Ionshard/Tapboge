@@ -49,7 +49,7 @@ exports.destroy = (req, res) ->
 exports.active = (req, res) ->
   Character.findOne {user: req.user._id, active: true}, (err, character) ->
     return handleError(res, err) if err
-    return res.send(404) unless character
+    return res.send(204) unless character
     res.json 200, character
 
 exports.activate = (req, res) ->

@@ -101,12 +101,12 @@ describe "Character Controller", ->
             done()
       }
   describe "active", ->
-    it "should 404 when no active character", (done) ->
+    it "should 204 when no active character", (done) ->
       controller.active {
         user: {_id: id}
       }, {
         send: (res) ->
-          res.should.be.equal(404)
+          res.should.be.equal(204)
           done()
       }
 

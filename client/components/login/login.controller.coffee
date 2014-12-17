@@ -16,9 +16,13 @@ angular.module 'tapbogeApp'
       .then ->
         Auth.getCurrentCharacter().$promise
         .then (data) ->
-          $location.path '/game'
+          if data.hasOwnProperty 'active'
+            $location.path '/game'
+          else
+            $location.path '/characters'
+            
         .catch (err) ->
-          $location.path '/characters'
+          $scope.errors.other = err.message
 
       .catch (err) ->
         $scope.errors.other = err.message
