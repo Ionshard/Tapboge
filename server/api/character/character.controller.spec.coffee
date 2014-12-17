@@ -130,7 +130,7 @@ describe "Character Controller", ->
     it "should set character to active", (done) ->
       controller.activate {
         user: {_id: id}
-        params: {id: character1._id}
+        body: {id: character1._id}
       }, {
         send: (res) ->
           res.should.equal(200)

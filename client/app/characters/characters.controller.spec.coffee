@@ -8,18 +8,22 @@ describe 'Controller: CharactersController', ->
   Character = undefined
   $scope = undefined
   $httpBackend = undefined
+  $location = undefined
   testCharacters = [
-      {name: "Character1", active: true},
-      {name: "Character2"}
+      {_id: 123, name: "Character1"},
+      {_id: 456, name: "Character2"}
     ]
 
   # Initialize the controller and a mock scope
-  beforeEach inject ($controller, _$rootScope_, _$httpBackend_, _Character_) ->
+  beforeEach inject ($controller, _$rootScope_, _$httpBackend_,
+    _$location_, _Character_) ->
+
     $scope = _$rootScope_.$new()
     CharactersController = $controller 'CharactersController',
       $scope: $scope
     $httpBackend = _$httpBackend_
     Character = _Character_
+    $location = _$location_
 
   afterEach ->
     $httpBackend.verifyNoOutstandingExpectation()
@@ -56,3 +60,13 @@ describe 'Controller: CharactersController', ->
     Character.active()
 
     $httpBackend.flush()
+
+  it 'should activate a character', ->
+    $httpBackend.whenGET('/api/users/me/characters').respond testCharacters
+    $httpBackend.expectPUT('/api/characters/active').respond 200
+
+    $scope.activateCharacter(testCharacters._id)
+
+    $httpBackend.flush()
+
+    expect($location.path()).toBe('/game')

@@ -50,7 +50,7 @@ User.find({}).remove ->
       Character.create
         user: admin._id
         name: "Character 1"
-        active: true
+        # active: true
       ,
         user: admin._id
         name: "Character 2"

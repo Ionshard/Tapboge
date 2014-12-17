@@ -1,23 +1,28 @@
 div(ng-include='"components/navbar/navbar.html"')
-.col-md-12
-    | Active Character: {{ character().name }}
 
-.col-md-12
-  li(ng-repeat="character in characters") {{ character.name }}
+.container
+  .row
+    .col-sm-6
+      h2 Characters
+      ul.characters(ng-repeat="character in characters") 
+        li 
+          a.btn.btn-default.btn-sm.btn-activate(href='' ng-click='activateCharacter(character._id)')
+            | Activate
+          {{ character.name }}
 
-.col-md-12
-  h2 New Character
-  .container.new-character
-    form.form(name='form', ng-submit='createCharacter(form)')
-      .form-group
-        label Name
-        input.form-control(type='text', name='name', ng-model='newCharacter.name', ng-required="true")
+    .col-sm-6
+      h2 New Character
+      .new-character
+        form.form(name='form', ng-submit='createCharacter(form)')
+          .form-group
+            label Name
+            input.form-control(type='text', name='name', ng-model='newCharacter.name', ng-required="true")
 
-      .form-group.has-error
-        p.help-block(ng-show='form.name.$error.required && submitted')
-          | Please enter a name.
-        p.help-block {{ errors.other }}
+          .form-group.has-error
+            p.help-block(ng-show='form.name.$error.required && submitted')
+              | Please enter a name.
+            p.help-block {{ errors.other }}
 
-      div
-        button.btn.btn-default.btn-login(type='submit')
-          | Create
+          div
+            button.btn.btn-default.btn-login(type='submit')
+              | Create

@@ -54,7 +54,7 @@ exports.active = (req, res) ->
 
 exports.activate = (req, res) ->
   userId = req.user._id
-  characterId = req.params.id
+  characterId = req.body.id
   Character.update {user: userId}, {active: false}, {multi: true}, (err) ->
     return handleError(res, err) if err
     Character.update {_id: characterId}, {active: true}, (err) ->

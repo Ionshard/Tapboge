@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'tapbogeApp'
-.controller 'CharactersController', ($scope, $http, Auth) ->
+.controller 'CharactersController', ($scope, $http, $location, Auth) ->
 
   $scope.init = ->
     $scope.getCharacters()
@@ -17,5 +17,10 @@ angular.module 'tapbogeApp'
       .success (character) ->
         $scope.characters.push(character)
         $scope.newCharacter = {}
+
+  $scope.activateCharacter = (id) ->
+    $http.put('/api/characters/active', {id: id})
+    .success ->
+      $location.path '/game'
 
   $scope.init()
