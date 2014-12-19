@@ -32,7 +32,7 @@ angular.module 'tapbogeApp'
       return 'public'
 
   $scope.logout = ->
-    Auth.deactivateCharacters().success ->
+    Auth.deactivateCharacters() ->
       Auth.logout()
     $location.path '/'
 

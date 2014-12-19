@@ -61,6 +61,7 @@ describe "Character Controller", ->
         json: (res, data) ->
           res.should.be.equal(201)
           data.name.should.be.eql("Controller Character")
+          data.active.should.be.true
           Character.count {}, (err, count) ->
             throw err if err
             count.should.be.equal(3)

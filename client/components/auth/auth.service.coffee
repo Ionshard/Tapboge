@@ -66,6 +66,24 @@ angular.module 'tapbogeApp'
 
     .$promise
 
+  ###
+  Create a new character
+
+  @param  {Object}   character     - character info
+  @param  {Function} callback - optional
+  @return {Promise}
+  ###
+  createCharacter: (character, callback) ->
+    Character.save character,
+      (data) ->
+        currentCharacter = Character.active()
+        callback? character
+
+      , (err) =>
+        callback? err
+
+    .$promise
+
 
   ###
   Change password
@@ -108,26 +126,40 @@ angular.module 'tapbogeApp'
     currentCharacter
 
   ###
+  Gets a list of the user's characters
+
+  @return {Array} list of characters
+  ###
+  getCharacters: ->
+    User.characters()
+
+  ###
   Activates character
   @param {String} id
   @return {Promise}
   ###
 
-  activateCharacter: (id) ->
-    $http.put('/api/characters/active', {id: id})
-    .success ->
+  activateCharacter: (id, callback) ->
+    Character.activate {id: id}, ->
       currentCharacter = Character.active()
+      callback?()
+    , (err) ->
+      callback? err
+    .$promise
 
   ###
   Deactivates current user's characters
 
-  @return {HttpPromise}
+  @return {Promise}
   ###
 
-  deactivateCharacters: ->
-    $http.delete('/api/characters/active')
-    .success ->
+  deactivateCharacters: (callback) ->
+    Character.deactivate ->
       currentCharacter = {}
+      callback?()
+    , (err) ->
+      callback? err
+    .$promise
 
   ###
   Check if a user is logged in synchronously

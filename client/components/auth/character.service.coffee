@@ -10,3 +10,12 @@ angular.module 'tapbogeApp'
       params:
         id: 'active'
 
+    activate:
+      method: 'PUT'
+      params:
+        id: 'active'
+
+    deactivate:
+      method: 'DELETE'
+      params:
+        id: 'active'

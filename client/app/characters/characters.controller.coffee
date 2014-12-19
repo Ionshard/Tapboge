@@ -3,24 +3,16 @@
 angular.module 'tapbogeApp'
 .controller 'CharactersController', ($scope, $http, $location, Auth) ->
 
-  $scope.init = ->
-    $scope.getCharacters()
-    $scope.character = Auth.getCurrentCharacter
-
-  $scope.getCharacters = ->
-    $http.get('/api/users/me/characters').success (data) ->
-      $scope.characters = data
+  $scope.characters = Auth.getCharacters()
+  $scope.newCharacter = {}
 
   $scope.createCharacter = (form) ->
     if form.$valid
-      $http.post('/api/characters/', $scope.newCharacter)
-      .success (character) ->
-        $scope.characters.push(character)
+      Auth.createCharacter $scope.newCharacter, (character) ->
         $scope.newCharacter = {}
+        $location.path '/game'
+
 
   $scope.activateCharacter = (id) ->
-    Auth.activateCharacter(id)
-    .success ->
+    Auth.activateCharacter id, ->
       $location.path '/game'
-
-  $scope.init()

@@ -1,10 +1,12 @@
 "use strict"
 _ = require("lodash")
+Character = require("./character.model")
 
 handleError = (res, err) ->
   res.send 500, err
-  
-Character = require("./character.model")
+
+deactivateCharacter = (userId, callback) ->
+  Character.update {user: userId}, {active: false}, {multi: true}, callback
 
 # Get list of characters
 exports.index = (req, res) ->
@@ -22,9 +24,12 @@ exports.show = (req, res) ->
 # Creates a new character in the DB.
 exports.create = (req, res) ->
   req.body.user = req.user._id
-  Character.create req.body, (err, character) ->
+  deactivateCharacter req.user._id, (err) ->
     return handleError(res, err) if err
-    res.json 201, character
+    req.body.active = true
+    Character.create req.body, (err, character) ->
+      return handleError(res, err) if err
+      res.json 201, character
 
 # Updates an existing character in the DB.
 exports.update = (req, res) ->
@@ -50,14 +55,11 @@ exports.active = (req, res) ->
   return res.send(204) unless req.character
   res.json 200, req.character
 
-deactivate = (userId, callback) ->
-  Character.update {user: userId}, {active: false}, {multi: true}, callback
-
 
 exports.activate = (req, res) ->
   userId = req.user._id
   characterId = req.body.id
-  deactivate userId, (err) ->
+  deactivateCharacter userId, (err) ->
     return handleError(res, err) if err
     Character.update {_id: characterId}, {active: true}, (err) ->
       return handleError(res, err) if err
@@ -65,5 +67,5 @@ exports.activate = (req, res) ->
 
 exports.deactivate = (req, res) ->
   userId = req.user._id
-  deactivate userId, (err) ->
+  deactivateCharacter userId, (err) ->
     res.send(200)

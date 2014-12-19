@@ -25,6 +25,9 @@ describe 'Controller: CharactersController', ->
     Character = _Character_
     $location = _$location_
 
+
+    $httpBackend.whenGET('/api/users/me/characters').respond testCharacters
+
   afterEach ->
     $httpBackend.verifyNoOutstandingExpectation()
     $httpBackend.verifyNoOutstandingRequest()
@@ -43,18 +46,16 @@ describe 'Controller: CharactersController', ->
       name: "New Character"
     }
     $scope.newCharacter = newCharacter
-    $httpBackend.whenGET('/api/users/me/characters').respond testCharacters
-    $httpBackend.expectPOST('/api/characters/').respond 201, newCharacter
-
+    $httpBackend.expectPOST('/api/characters').respond 200
+    $httpBackend.expectGET('/api/characters/active').respond testCharacters[0]
+    
     $scope.createCharacter(form)
 
     $httpBackend.flush()
-    names = _.pluck($scope.characters, 'name')
-    expect(names).toContain("New Character")
-    expect($scope.newCharacter.name).toBe(undefined)
+
+    expect($location.path()).toBe('/game')
 
   it 'should fetch the current character', ->
-    $httpBackend.whenGET('/api/users/me/characters').respond testCharacters
     $httpBackend.expectGET('/api/characters/active').respond testCharacters[0]
 
     Character.active()
@@ -62,7 +63,6 @@ describe 'Controller: CharactersController', ->
     $httpBackend.flush()
 
   it 'should activate a character', ->
-    $httpBackend.whenGET('/api/users/me/characters').respond testCharacters
     $httpBackend.expectPUT('/api/characters/active').respond 200
     $httpBackend.expectGET('/api/characters/active').respond testCharacters[0]
 

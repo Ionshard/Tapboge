@@ -15,3 +15,10 @@ angular.module 'tapbogeApp'
       params:
         id: 'me'
 
+    characters:
+      method: 'GET'
+      isArray: true
+      params:
+        id: 'me'
+        controller: 'characters'
+
