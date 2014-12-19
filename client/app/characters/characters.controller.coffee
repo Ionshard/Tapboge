@@ -19,7 +19,7 @@ angular.module 'tapbogeApp'
         $scope.newCharacter = {}
 
   $scope.activateCharacter = (id) ->
-    $http.put('/api/characters/active', {id: id})
+    Auth.activateCharacter(id)
     .success ->
       $location.path '/game'
 

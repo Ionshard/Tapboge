@@ -108,12 +108,43 @@ angular.module 'tapbogeApp'
     currentCharacter
 
   ###
+  Activates character
+  @param {String} id
+  @return {Promise}
+  ###
+
+  activateCharacter: (id) ->
+    $http.put('/api/characters/active', {id: id})
+    .success ->
+      currentCharacter = Character.active()
+
+  ###
+  Deactivates current user's characters
+
+  @return {HttpPromise}
+  ###
+
+  deactivateCharacters: ->
+    $http.delete('/api/characters/active')
+    .success ->
+      currentCharacter = {}
+
+  ###
   Check if a user is logged in synchronously
 
   @return {Boolean}
   ###
   isLoggedIn: ->
     currentUser.hasOwnProperty 'role'
+
+
+  ###
+  Check if a user has an active character synchronously
+
+  @return {Boolean}
+  ###
+  hasCurrentCharacter: ->
+    currentCharacter.hasOwnProperty 'active'
 
 
   ###

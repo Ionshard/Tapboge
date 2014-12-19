@@ -64,6 +64,7 @@ describe 'Controller: CharactersController', ->
   it 'should activate a character', ->
     $httpBackend.whenGET('/api/users/me/characters').respond testCharacters
     $httpBackend.expectPUT('/api/characters/active').respond 200
+    $httpBackend.expectGET('/api/characters/active').respond testCharacters[0]
 
     $scope.activateCharacter(testCharacters._id)
 

@@ -23,6 +23,7 @@ describe "Character Controller", ->
     Character.create [
       name: "Test Character 1"
       user: id
+      active: true
     ,
       name: "Test Character 2"
       user: id
@@ -102,19 +103,17 @@ describe "Character Controller", ->
       }
   describe "active", ->
     it "should 204 when no active character", (done) ->
-      controller.active {
-        user: {_id: id}
-      }, {
-        send: (res) ->
-          res.should.be.equal(204)
-          done()
-      }
+      Character.findByIdAndUpdate character1._id, {active: false}, (err) ->
+        throw err if err
+        controller.active {
+          user: {_id: id}
+        }, {
+          send: (res) ->
+            res.should.be.equal(204)
+            done()
+        }
 
     it "should return the currently active character", (done) ->
-
-      Character.findByIdAndUpdate character1._id, {active: true}, (err) ->
-        throw err if err
-        
         controller.active {
           user: {_id: id}
           # character: {_id: character1?._id}
@@ -136,5 +135,17 @@ describe "Character Controller", ->
           res.should.equal(200)
           Character.findById character1._id, (err, character) ->
             character.active.should.be.true
+            done()
+      }
+
+  describe "deactivate", ->
+    it "should deactivate all characters for a user", (done) ->
+      controller.deactivate {
+        user: {_id: id}
+      }, {
+        send: (res) ->
+          res.should.equal(200)
+          Character.find {user: id, active: true}, (err, data) ->
+            data.should.be.empty
             done()
       }

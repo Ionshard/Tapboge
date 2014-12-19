@@ -1,8 +1,9 @@
 'use strict'
 
 angular.module 'tapbogeApp'
-.controller 'MainController', ($scope, $http, socket) ->
+.controller 'MainController', ($scope, $http, socket, Auth) ->
   $scope.awesomeThings = []
+  $scope.isLoggedIn = Auth.isLoggedIn
 
   $http.get('/api/things').success (awesomeThings) ->
     $scope.awesomeThings = awesomeThings

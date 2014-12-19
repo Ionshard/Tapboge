@@ -2,15 +2,20 @@ div(ng-include='"components/navbar/navbar.html"')
 
 header#banner
   .container
-    .row
+    .row(ng-hide='isLoggedIn()')
       .col-md-3.col-md-offset-0.col-sm-4.col-sm-offset-2.col-xs-12.col-xs-offset-0.pull-right
         .row
           div(ng-controller='LoginController' ng-include='"components/login/form.html"')
       .col-md-9.col-sm-6
           h1.page-header Tapboge
-          p.lead Tiling AP Based Online Game Engine
+          p.lead A Tiling AP Based Online Game Engine
           a(href='/signup', tooltip='Sign Up').btn.btn-primary.btn-lg
             | Sign Up
+    .row(ng-show='isLoggedIn()')
+      h1.page-header Tapboge
+      p.lead A Tiling AP Based Online Game Engine
+      a(href='/game', tooltip='Go to Game').btn.btn-primary.btn-lg
+        | Go to Game
 
 .container
   .row

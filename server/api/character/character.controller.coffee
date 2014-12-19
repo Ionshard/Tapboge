@@ -52,11 +52,20 @@ exports.active = (req, res) ->
     return res.send(204) unless character
     res.json 200, character
 
+deactivate = (userId, callback) ->
+  Character.update {user: userId}, {active: false}, {multi: true}, callback
+
+
 exports.activate = (req, res) ->
   userId = req.user._id
   characterId = req.body.id
-  Character.update {user: userId}, {active: false}, {multi: true}, (err) ->
+  deactivate userId, (err) ->
     return handleError(res, err) if err
     Character.update {_id: characterId}, {active: true}, (err) ->
       return handleError(res, err) if err
       res.send(200)
+
+exports.deactivate = (req, res) ->
+  userId = req.user._id
+  deactivate userId, (err) ->
+    res.send(200)
