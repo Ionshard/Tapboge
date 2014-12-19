@@ -8,7 +8,7 @@ div(ng-include='"components/navbar/navbar.html"')
         li 
           a.btn.btn-default.btn-sm.btn-activate(href='' ng-click='activateCharacter(character._id)')
             | Activate
-          {{ character.name }}
+          p {{ character.name }}
 
     .col-sm-6
       h2 New Character
