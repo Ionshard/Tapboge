@@ -26,6 +26,12 @@ isAuthenticated = ->
       req.user = user
       next()
 
+  .use (req, res, next) ->
+    Character.findOne {user: req.user._id, active: true}, (err, character) ->
+      return next(err) if err
+      req.character = character
+      next()
+
 ###*
 Checks if the user role meets the minimum requirements of the route
 ###

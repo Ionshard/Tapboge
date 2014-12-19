@@ -116,7 +116,7 @@ describe "Character Controller", ->
     it "should return the currently active character", (done) ->
         controller.active {
           user: {_id: id}
-          # character: {_id: character1?._id}
+          character: {_id: character1._id}
         }, {
           json: (res, data) ->
             res.should.equal(200)

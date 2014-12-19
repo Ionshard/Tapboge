@@ -47,10 +47,8 @@ exports.destroy = (req, res) ->
       res.send 204
 
 exports.active = (req, res) ->
-  Character.findOne {user: req.user._id, active: true}, (err, character) ->
-    return handleError(res, err) if err
-    return res.send(204) unless character
-    res.json 200, character
+  return res.send(204) unless req.character
+  res.json 200, req.character
 
 deactivate = (userId, callback) ->
   Character.update {user: userId}, {active: false}, {multi: true}, callback
